@@ -1,0 +1,165 @@
+northstar_suite:
+  brand: ZeroShot.dev
+  total_projects: 5
+  mission: >
+    Build five interoperable MCP-based pipelines that prove mastery across
+    AI data architecture, ETL, cloud deployment, orchestration, and visualization.
+    Each project stands alone but can connect through shared resume.mcp.json
+    and rulebook.yaml for two-sided matching between your skills and the market.
+
+  shared_assets:
+    - rulebook.yaml            # evolving keyword bias logic
+    - resume.mcp.json          # single source of truth for skills and identity
+    - shortlist.csv / discard.csv  # job ranking outputs
+    - duckdb_local.db          # central data lake
+    - /supabase/               # optional cloud mirror
+    - sync_data.sh             # bridges projects for daily updates
+    - .env.global              # shared keys, Supabase/AWS/GCP credentials
+    - README.md                # master architecture overview
+
+  projects:
+
+    - id: 1
+      name: Resume MCP (Boss Baby grown-up)
+      purpose: >
+        Core intelligence layer that turns your resume into a machine-readable
+        knowledge graph. It ranks job postings, evolves rule sets, and powers
+        dynamic resume frontend.
+      inputs:
+        - jobs_raw.csv (≈100 jobs from APIs, Airtable, CSVs)
+        - resume.mcp.json (skills, experience, bias weights)
+        - rulebook.yaml (positive/negative keyword schema)
+      process:
+        - fetch_apis.sh → unify sources (Google, Himalayas, etc.)
+        - combine_csvs.sh → merge into unified_jobs_raw.csv
+        - match_rank.py → semantic ranking vs. resume.mcp
+      outputs:
+        - jobs_clean.csv (≈100)
+        - shortlist.csv (≈5)
+        - discard.csv (≈95)
+      stack: [Python, DuckDB, Supabase, Claude Code, Warp CLI]
+      mcp_role: >
+        Central "brain" MCP – applies AI reasoning to job-skill matching.
+      ml_expansion:
+        - Embedding similarity (resume vs job text)
+        - Feedback loop from discard.csv to retrain rulebook.yaml
+        - Trend-driven skill update from public job APIs
+
+    - id: 2
+      name: Mocktailverse (AWS ETL)
+      purpose: >
+        Serverless AWS data-engineering pipeline proving backend automation.
+        Mirrors Resume MCP ingestion logic for any structured dataset.
+      flow:
+        - S3 → Lambda (transform) → DynamoDB
+        - CloudWatch → trigger on upload
+        - Export metrics to local DuckDB for inspection
+      deliverables:
+        - s3_setup.sh
+        - lambda/transform.py
+        - dynamodb_schema.json
+        - etl_log.txt
+      stack: [AWS S3, Lambda, DynamoDB, boto3, CLI-first]
+      mcp_role: AWS Cloud ETL MCP
+      extension:
+        - Optional connection to Resume MCP for shared dataset
+
+    - id: 3
+      name: Cocktailverse (GCP ETL)
+      purpose: >
+        GCP mirror of Mocktailverse using Cloud Functions, GCS, and BigQuery.
+        Demonstrates cloud-agnostic design and cross-platform orchestration.
+      flow:
+        - GCS → Cloud Function (transform) → BigQuery table
+        - Scheduled query exports to DuckDB
+      deliverables:
+        - gcf/transform.py
+        - bq/schema.json
+        - api/test_harness.py
+      stack: [GCS, Cloud Functions, BigQuery, FastAPI]
+      mcp_role: GCP Cloud ETL MCP
+      extension:
+        - Bridges with Resume MCP data via shared schema adapter
+
+    - id: 4
+      name: Dynamic Resume (Full-Stack)
+      purpose: >
+        Turns Resume MCP outputs into a live, interactive web resume.
+        Visualizes skills, job matches, and portfolio metrics dynamically.
+      flow:
+        resume.mcp.json → sync_data.sh → api_sync.py → frontend dashboard
+      components:
+        frontend:
+          - Next.js or Streamlit UI
+          - SkillChart, JobMatchTable, ProjectTimeline components
+        backend:
+          - api_sync.py (fetch latest resume + shortlist)
+          - db/duckdb_local.db (cached analytics)
+      deliverables:
+        - app/pages/index.js or app.py
+        - components/
+        - styles/global.css
+        - backend/api_sync.py
+        - vercel.json or Procfile
+      stack: [Next.js/Streamlit, DuckDB, Vercel]
+      mcp_role: Frontend visualization MCP
+      stretch:
+        - Evolution Tracker showing skill changes over time
+        - PDF export of current resume snapshot
+
+    - id: 5
+      name: Marketing Analytics Dashboard (ETL + Visualization)
+      purpose: >
+        Real-world marketing analytics ETL project demonstrating applied data
+        pipeline, KPI computation, and visualization. Uses mock or API data
+        from Google Ads and Facebook Ads.
+      flow:
+        fetch_google_ads.py + fetch_facebook_ads.py
+        → clean_merge.py → unified_ads.csv → DuckDB → Streamlit Dashboard
+      metrics: [CTR, CPC, ROAS, Conversions]
+      deliverables:
+        - data/raw/google_ads.csv
+        - data/raw/facebook_ads.csv
+        - data/clean/unified_ads.csv
+        - db/ads_analytics.duckdb
+        - dashboard/app.py
+        - run_pipeline.sh
+      stack: [DuckDB, Streamlit, Plotly, Pandas, Requests]
+      mcp_role: Marketing ETL MCP
+      stretch:
+        - Compare-by-Platform toggle
+        - Supabase sync for remote dashboards
+
+  ai_agent_plan:
+    - short_term:
+        description: >
+          Keep AI orchestration light. Use Claude Code, Cursor, and ChatGPT SDK
+          for isolated automation (file sync, ranking, summarization).
+        scope: Resume MCP + Dynamic Resume only.
+    - long_term:
+        description: >
+          Integrate LangChain/LangGraph/CrewAI as orchestration layer once
+          data flow is stable, beginning with skill evolution tasks.
+        target_projects: [1, 4]
+    - reasoning_layers:
+        - skill inference → Resume MCP
+        - job enrichment → Resume MCP
+        - front-end sync → Dynamic Resume
+        - feedback learning → rulebook.yaml tuning
+
+  future_branches:
+    - /northstar/archive/ → frozen older experiments
+    - /northstar/mcp_registry.yaml → quick summary for tool ingestion
+    - /northstar/docs/ → diagrams + mermaid charts
+    - /northstar/.warp/ → prebuilt CLI workflows
+    - /northstar/.cursor/ → context config for Claude Code
+
+  meta_notes:
+    author: Bchan (Anix Lynch)
+    tone: B-tone (energetic, creative, action-led)
+    stack_preference: CLI-first, agent-assisted, cloud-agnostic
+    interoperability: All 5 MCPs share resume.mcp.json and duckdb_local.db
+    end_goal: >
+      Demonstrate a production-grade, end-to-end AI data-engineering ecosystem
+      that evolves your resume, ranks real jobs, visualizes live insights, and
+      runs locally or in cloud under ZeroShot.dev identity.
