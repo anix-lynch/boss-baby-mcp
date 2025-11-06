@@ -1,0 +1,32 @@
+experience:
+- company: Tech Company
+  description: Built ML pipelines and automated data systems
+  duration: 2022-Present
+  title: AI Engineer
+personal_info:
+  email: anix@example.com
+  github: github.com/anix-lynch
+  linkedin: linkedin.com/in/anixlynch
+  name: Anix Lynch
+  title: AI Engineer & Data Scientist
+projects:
+- description: Automated decision-making system
+  name: AI Agent System
+  tech:
+  - Python
+  - ML
+  - APIs
+skills:
+- Python
+- Machine Learning
+- Data Engineering
+- ETL
+- Open Source
+- AI
+- Marketing
+- Dashboard
+- APIs
+- Automation
+- Cloud Computing
+summary: AI Engineer specializing in machine learning pipelines, data engineering,
+  and automation systems.
