@@ -15,8 +15,16 @@ A comprehensive Model Context Protocol (MCP) server that provides access to resu
 - Search certificates by keyword, ID, or issuer
 - Repository information access
 
+### Northstar 5 MCP (`northstar_mcp.py`)
+- Access 5 interoperable MCP projects via `/northstar` endpoint
+- Individual project details by ID via `/northstar/project` endpoint
+- Project search and filtering capabilities
+- Technology stack summary across all projects
+- AI agent plan and roadmap information
+- Interoperability matrix showing project connections
+
 ### Unified MCP (`unified_mcp.py`)
-- Combined access to both resume and certificates data
+- Combined access to resume, certificates, and Northstar data
 - Profile summary with integrated information
 - Universal search across all data sources
 
@@ -87,6 +95,15 @@ python boss_babyv1/unified_mcp.py --endpoint all
 
 # Universal search
 python boss_babyv1/unified_mcp.py --endpoint search --query "Machine Learning"
+
+# Get Northstar data via unified MCP
+python boss_babyv1/unified_mcp.py --endpoint northstar
+
+# Get Northstar projects via unified MCP
+python boss_babyv1/unified_mcp.py --endpoint projects
+
+# Search Northstar projects via unified MCP
+python boss_babyv1/unified_mcp.py --endpoint northstar-search --query "AWS"
 ```
 
 ## 📊 Data Sources
@@ -103,6 +120,13 @@ python boss_babyv1/unified_mcp.py --endpoint search --query "Machine Learning"
 - Language certifications (JLPT N1, TOEIC)
 - Verified badges from Credly
 - Repository information linking to github-cert-showcase
+
+### Northstar 5 Project Data
+- **5 interoperable MCP projects** with full specifications
+- Project details including purpose, stack, and deliverables
+- AI agent orchestration plan with short and long-term goals
+- Shared assets and interoperability matrix
+- Technology stack summary across all projects
 
 ## 🔧 API Endpoints
 
